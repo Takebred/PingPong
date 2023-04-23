@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PingPong.iml" filepath="$PROJECT_DIR$/PingPong.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fonts/fonts.iml" filepath="$PROJECT_DIR$/fonts/fonts.iml" />
     </modules>
   </component>
 </project>
