@@ -35,6 +35,8 @@ public class PingPong  extends Application {
     private int score2 = 0;
 
     private boolean partieEnCours;
+    Font policeCommencer = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/DebugFreeTrial-MVdYB.otf",70);
+    Font policeScore = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",40);
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ping Pong by Takebred");
@@ -56,7 +58,6 @@ public class PingPong  extends Application {
         gc.fillRect(0,0, COTE_FENETRE, COTE_FENETRE);
 
         gc.setFill(Color.WHITE);
-        gc.setFont(Font.font(25));
 
         if(partieEnCours){
             balleX+=vitesseBalleX;
@@ -76,6 +77,7 @@ public class PingPong  extends Application {
         }else {
             gc.setFill(Color.WHITE);
             gc.setTextAlign(TextAlignment.CENTER);
+            gc.setFont(policeCommencer);
             gc.fillText("Commencer une partie !", COTE_FENETRE/2, COTE_FENETRE/2);
 
             //Comportement de la balle à chaque début de partie
@@ -102,7 +104,8 @@ public class PingPong  extends Application {
             partieEnCours = false;
         }
 
-        gc.fillText("Joueur 1 : " + score1 + "                 Joueur 2 : " + score2, COTE_FENETRE/2, 100);
+        gc.setFont(policeScore);
+        gc.fillText("Joueur 1 : " + score1 + "                                                          Joueur 2 : " + score2, COTE_FENETRE/2, 100);
 
         gc.fillRect(joueur1X,joueur1Y,EPAISSEUR_JOUEUR,LONGUEUR_JOUEUR);
         gc.fillRect(joueur2X,joueur2Y,EPAISSEUR_JOUEUR,LONGUEUR_JOUEUR);
