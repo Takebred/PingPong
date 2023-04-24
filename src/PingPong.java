@@ -35,7 +35,7 @@ public class PingPong  extends Application {
     private int score2 = 0;
 
     private boolean partieEnCours;
-    Font policeCommencer = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/DebugFreeTrial-MVdYB.otf",70);
+    Font policeCommencer = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",70);
     Font policeScore = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",40);
 
     public void start(Stage primaryStage) throws Exception {
@@ -44,7 +44,7 @@ public class PingPong  extends Application {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Timeline tl = new Timeline(new KeyFrame(Duration.millis(10), event -> lancer(gc)));
         tl.setCycleCount(Timeline.INDEFINITE);
-
+        
         canvas.setOnMouseMoved(event -> joueur1Y = partieEnCours ? (event.getY() <= COTE_FENETRE - LONGUEUR_JOUEUR ?
                 event.getY() : COTE_FENETRE - LONGUEUR_JOUEUR ) : COTE_FENETRE/2 - LONGUEUR_JOUEUR/2);
         canvas.setOnMouseClicked(event -> partieEnCours = true);
