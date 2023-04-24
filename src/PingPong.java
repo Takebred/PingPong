@@ -23,7 +23,7 @@ public class PingPong  extends Application {
     private static final double joueur2X = COTE_FENETRE - EPAISSEUR_JOUEUR;
     private static final int RAYON_BALLE = 20;
     private static int vitesseBalleX = 1;
-    private static int vitesseBalleY = 1;
+    private static double vitesseBalleY = 1;
 
     private double joueur1Y = COTE_FENETRE/2 - LONGUEUR_JOUEUR/2;
     private double joueur2Y = COTE_FENETRE/2 - LONGUEUR_JOUEUR/2;
@@ -43,7 +43,8 @@ public class PingPong  extends Application {
         Timeline tl = new Timeline(new KeyFrame(Duration.millis(10), event -> lancer(gc)));
         tl.setCycleCount(Timeline.INDEFINITE);
 
-        canvas.setOnMouseMoved(event -> joueur1Y = event.getY());
+        canvas.setOnMouseMoved(event -> joueur1Y = partieEnCours ? (event.getY() <= COTE_FENETRE - LONGUEUR_JOUEUR ?
+                event.getY() : COTE_FENETRE - LONGUEUR_JOUEUR ) : COTE_FENETRE/2 - LONGUEUR_JOUEUR/2);
         canvas.setOnMouseClicked(event -> partieEnCours = true);
         primaryStage.setScene(new Scene(new StackPane(canvas)));
         primaryStage.show();
@@ -62,10 +63,12 @@ public class PingPong  extends Application {
             balleY+=vitesseBalleY;
 
             //Comportement de l'ordinateur
-            if(balleX<(3*COTE_FENETRE/4)){
-                joueur2Y = balleY - LONGUEUR_JOUEUR/2;
-            }else{
-                joueur2Y = balleY > joueur2Y + LONGUEUR_JOUEUR/2 ? joueur2Y+1 : joueur2Y-1;
+            if(balleY<COTE_FENETRE-LONGUEUR_JOUEUR/2 && balleY>LONGUEUR_JOUEUR/2){
+                if(balleX<=COTE_FENETRE/2){
+                    joueur2Y = balleY - LONGUEUR_JOUEUR/2;
+                }else{
+                    joueur2Y = balleY > joueur2Y + LONGUEUR_JOUEUR/2 ? joueur2Y+10 : joueur2Y-10;
+                }
             }
 
             gc.fillOval(balleX, balleY, RAYON_BALLE, RAYON_BALLE);
@@ -78,15 +81,16 @@ public class PingPong  extends Application {
             //Comportement de la balle à chaque début de partie
             balleX = COTE_FENETRE/2 - RAYON_BALLE/2;
             balleY = COTE_FENETRE/2 - RAYON_BALLE/2;
-            vitesseBalleX = new Random().nextInt(2)==0 ? 1: - 1;
-            vitesseBalleY = new Random().nextInt(2)==0 ? 1: - 1;
+            vitesseBalleX = new Random().nextInt(2)==0 ? 3: -3;
+            vitesseBalleY = new Random().nextInt(2)==0 ? 3: -3;
         }
 
         //Comportement de la balle quand elle approche l'un des bords de la fenêtre
-        if(balleY==COTE_FENETRE-RAYON_BALLE || balleY==0) vitesseBalleY *= -1;
-        if((balleX==EPAISSEUR_JOUEUR && balleY<=joueur1Y+LONGUEUR_JOUEUR && balleY>=joueur1Y) || (balleX==COTE_FENETRE-EPAISSEUR_JOUEUR-RAYON_BALLE && balleY<=joueur2Y+LONGUEUR_JOUEUR && balleY>=joueur2Y)){
-            vitesseBalleX *=-1;
+        if((balleX == EPAISSEUR_JOUEUR && balleY <= joueur1Y + LONGUEUR_JOUEUR && balleY >= joueur1Y) ||
+                (balleX == COTE_FENETRE - EPAISSEUR_JOUEUR - RAYON_BALLE && balleY <= joueur2Y + LONGUEUR_JOUEUR && balleY >= joueur2Y)){
+            vitesseBalleX *= -1.10;
         }
+        if(balleY >= COTE_FENETRE-RAYON_BALLE || balleY <= 0) vitesseBalleY *= -1.05;
 
         if(balleX<joueur1X){
             score2++;
