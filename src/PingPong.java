@@ -44,7 +44,6 @@ public class PingPong  extends Application {
     private static final Media mediaTheme = new Media("file:///D:/Projets/Games/PingPong/sounds/PingPongTheme.mp3");
     public static final  MediaPlayer mediaPlayerTheme = new MediaPlayer(mediaTheme);
 
-
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ping Pong by Takebred");
         mediaPlayerTheme.play();
@@ -65,9 +64,15 @@ public class PingPong  extends Application {
         gc.setFill(Color.BLACK);
         gc.fillRect(0,0, COTE_FENETRE, COTE_FENETRE);
 
-        gc.setFill(Color.WHITE);
-
         if(partieEnCours){
+
+            gc.setFill(Color.WHITE);
+            gc.fillRect(0,0, COTE_FENETRE, COTE_FENETRE);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(10,10, COTE_FENETRE-20, COTE_FENETRE/2 - 15);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(10,COTE_FENETRE/2 + 5 , COTE_FENETRE - 20, COTE_FENETRE/2 - 15);
+
             balleX+=vitesseBalleX;
             balleY+=vitesseBalleY;
 
@@ -80,6 +85,7 @@ public class PingPong  extends Application {
                 }
             }
 
+            gc.setFill(Color.RED);
             gc.fillOval(balleX, balleY, RAYON_BALLE, RAYON_BALLE);
 
         }else {
@@ -114,9 +120,11 @@ public class PingPong  extends Application {
             partieEnCours = false;
         }
 
+        gc.setFill(Color.WHITE);
         gc.setFont(policeScore);
         gc.fillText("Joueur 1 : " + score1 + "                                                          Joueur 2 : " + score2, COTE_FENETRE/2, 100);
 
+        gc.setFill(Color.BLACK);
         gc.fillRect(joueur1X,joueur1Y,EPAISSEUR_JOUEUR,LONGUEUR_JOUEUR);
         gc.fillRect(joueur2X,joueur2Y,EPAISSEUR_JOUEUR,LONGUEUR_JOUEUR);
 
