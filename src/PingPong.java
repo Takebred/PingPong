@@ -57,8 +57,6 @@ public class PingPong  extends Application {
         gc.setFill(Color.BLACK);
         gc.fillRect(0,0, COTE_FENETRE, COTE_FENETRE);
 
-        gc.setFill(Color.WHITE);
-
         if(partieEnCours){
             balleX+=vitesseBalleX;
             balleY+=vitesseBalleY;
@@ -72,6 +70,7 @@ public class PingPong  extends Application {
                 }
             }
 
+            gc.setFill(Color.RED);
             gc.fillOval(balleX, balleY, RAYON_BALLE, RAYON_BALLE);
 
         }else {
@@ -104,6 +103,7 @@ public class PingPong  extends Application {
             partieEnCours = false;
         }
 
+        gc.setFill(Color.WHITE);
         gc.setFont(policeScore);
         gc.fillText("Joueur 1 : " + score1 + "                                                          Joueur 2 : " + score2, COTE_FENETRE/2, 100);
 
