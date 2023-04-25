@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -38,6 +40,8 @@ public class PingPong  extends Application {
     Font policeCommencer = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",70);
     Font policeScore = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",40);
 
+    public static final Image imageBackground = new Image("file:///D:Projets/Games/PingPong/img/Backgroung.jpg");
+
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ping Pong by Takebred");
         Canvas canvas = new Canvas(COTE_FENETRE, COTE_FENETRE);
@@ -58,6 +62,14 @@ public class PingPong  extends Application {
         gc.fillRect(0,0, COTE_FENETRE, COTE_FENETRE);
 
         if(partieEnCours){
+
+            gc.setFill(Color.WHITE);
+            gc.fillRect(0,0, COTE_FENETRE, COTE_FENETRE);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(10,10, COTE_FENETRE-20, COTE_FENETRE/2 - 15);
+            gc.setFill(Color.GREEN);
+            gc.fillRect(10,COTE_FENETRE/2 + 5 , COTE_FENETRE - 20, COTE_FENETRE/2 - 15);
+
             balleX+=vitesseBalleX;
             balleY+=vitesseBalleY;
 
@@ -107,6 +119,7 @@ public class PingPong  extends Application {
         gc.setFont(policeScore);
         gc.fillText("Joueur 1 : " + score1 + "                                                          Joueur 2 : " + score2, COTE_FENETRE/2, 100);
 
+        gc.setFill(Color.BLACK);
         gc.fillRect(joueur1X,joueur1Y,EPAISSEUR_JOUEUR,LONGUEUR_JOUEUR);
         gc.fillRect(joueur2X,joueur2Y,EPAISSEUR_JOUEUR,LONGUEUR_JOUEUR);
 
