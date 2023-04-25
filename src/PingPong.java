@@ -5,12 +5,15 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.Random;
 
 
@@ -37,9 +40,14 @@ public class PingPong  extends Application {
     private boolean partieEnCours;
     Font policeCommencer = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",70);
     Font policeScore = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",40);
+    
+    private static final Media mediaTheme = new Media("file:///D:/Projets/Games/PingPong/sounds/PingPongTheme.mp3");
+    public static final  MediaPlayer mediaPlayerTheme = new MediaPlayer(mediaTheme);
+
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ping Pong by Takebred");
+        mediaPlayerTheme.play();
         Canvas canvas = new Canvas(COTE_FENETRE, COTE_FENETRE);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Timeline tl = new Timeline(new KeyFrame(Duration.millis(10), event -> lancer(gc)));
@@ -92,7 +100,9 @@ public class PingPong  extends Application {
                 (balleX == COTE_FENETRE - EPAISSEUR_JOUEUR - RAYON_BALLE && balleY <= joueur2Y + LONGUEUR_JOUEUR && balleY >= joueur2Y)){
             vitesseBalleX *= -1.10;
         }
-        if(balleY >= COTE_FENETRE-RAYON_BALLE || balleY <= 0) vitesseBalleY *= -1.05;
+        if(balleY >= COTE_FENETRE-RAYON_BALLE || balleY <= 0) {
+            vitesseBalleY *= -1.05;
+        }
 
         if(balleX<joueur1X){
             score2++;
