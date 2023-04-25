@@ -81,16 +81,19 @@ public class PingPong  extends Application {
             //Comportement de la balle à chaque début de partie
             balleX = COTE_FENETRE/2 - RAYON_BALLE/2;
             balleY = COTE_FENETRE/2 - RAYON_BALLE/2;
-            vitesseBalleX = new Random().nextInt(2)==0 ? 3: -3;
-            vitesseBalleY = new Random().nextInt(2)==0 ? 3: -3;
+            vitesseBalleX = new Random().nextInt(2)==0 ? 5: -5;
+            vitesseBalleY = new Random().nextInt(2)==0 ? 5: -5;
         }
 
         //Comportement de la balle quand elle approche l'un des bords de la fenêtre
         if((balleX == EPAISSEUR_JOUEUR && balleY <= joueur1Y + LONGUEUR_JOUEUR && balleY >= joueur1Y) ||
                 (balleX == COTE_FENETRE - EPAISSEUR_JOUEUR - RAYON_BALLE && balleY <= joueur2Y + LONGUEUR_JOUEUR && balleY >= joueur2Y)){
-            vitesseBalleX *= -1.10;
+            vitesseBalleX *= new Random().nextInt(2)==0 ? -1.10 : -1.00 ;
+            vitesseBalleY += 2 ;
         }
-        if(balleY >= COTE_FENETRE-RAYON_BALLE || balleY <= 0) vitesseBalleY *= -1.05;
+        if(balleY >= COTE_FENETRE-RAYON_BALLE || balleY <= 0){
+            vitesseBalleY *= new Random().nextInt(2)==0 ? -1.10 : -1.00 ;
+        }
 
         if(balleX<joueur1X){
             score2++;
