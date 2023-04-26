@@ -40,14 +40,14 @@ public class PingPong  extends Application {
     private boolean partieEnCours;
     Font policeCommencer = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",70);
     Font policeScore = Font.loadFont("file:///D:/Projets/Games/PingPong/fonts/Roamer.ttf",40);
-    
-    private static final Media mediaTheme = new Media("file:///D:/Projets/Games/PingPong/sounds/PingPongTheme.mp3");
-    public static final  MediaPlayer mediaPlayerTheme = new MediaPlayer(mediaTheme);
 
-
+    public static final  MediaPlayer mediaPlayerTheme = new MediaPlayer(new Media("file:///D:/Projets/Games/PingPong/sounds/PingPongTheme.mp3"));
+    public static final  MediaPlayer mediaPlayerGameWon = new MediaPlayer(new Media("file:///D:/Projets/Games/PingPong/sounds/GameWon.mp3"));
+    public static final  MediaPlayer mediaPlayerGameLost = new MediaPlayer(new Media("file:///D:/Projets/Games/PingPong/sounds/GameLost.mp3"));
+    public static final  MediaPlayer mediaPlayerHittingBall = new MediaPlayer(new Media("file:///D:/Projets/Games/PingPong/sounds/HittingBall.mp3"));
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Ping Pong by Takebred");
-        mediaPlayerTheme.play();
+
         Canvas canvas = new Canvas(COTE_FENETRE, COTE_FENETRE);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Timeline tl = new Timeline(new KeyFrame(Duration.millis(10), event -> lancer(gc)));
@@ -68,6 +68,11 @@ public class PingPong  extends Application {
         gc.setFill(Color.WHITE);
 
         if(partieEnCours){
+            mediaPlayerGameWon.stop();
+            mediaPlayerGameLost.stop();
+            mediaPlayerTheme.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayerTheme.play();
+
             balleX+=vitesseBalleX;
             balleY+=vitesseBalleY;
 
@@ -83,6 +88,7 @@ public class PingPong  extends Application {
             gc.fillOval(balleX, balleY, RAYON_BALLE, RAYON_BALLE);
 
         }else {
+            mediaPlayerTheme.stop();
             gc.setFill(Color.WHITE);
             gc.setTextAlign(TextAlignment.CENTER);
             gc.setFont(policeCommencer);
@@ -107,11 +113,13 @@ public class PingPong  extends Application {
         if(balleX<joueur1X){
             score2++;
             partieEnCours = false;
+            mediaPlayerGameLost.play();
         }
 
         if(balleX>joueur2X+EPAISSEUR_JOUEUR){
             score1++;
             partieEnCours = false;
+            mediaPlayerGameWon.play();
         }
 
         gc.setFont(policeScore);
